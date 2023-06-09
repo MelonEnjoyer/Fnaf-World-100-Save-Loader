@@ -1,4 +1,4 @@
-# Fnaf-World-100-Mod-Menu
+# Fnaf-World-Mod-Menu
 
 A simple python Fnaf World 100% Save Loader, my first project! This is the first version, a complete trash version, and a trash guy, but very functional. I will make it better.I promise.
 Enjoy!
