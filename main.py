@@ -1,8 +1,6 @@
-import requests
+
 import getpass
 import os
-import pyautogui
-import json
 from tkinter import *
 
 username = getpass.getuser()
