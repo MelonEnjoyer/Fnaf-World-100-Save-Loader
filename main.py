@@ -1,6 +1,4 @@
-
 import getpass
-import os
 from tkinter import *
 
 username = getpass.getuser()
