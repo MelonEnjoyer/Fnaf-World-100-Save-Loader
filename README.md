@@ -5,6 +5,9 @@ Enjoy!
 
 # Features
 - Load a 100% Save for FNAF World
+- Infinite Tokens/Coins
+- Backup Saves
+- Change Slot( 1 Slot, 2 Slot, 3 Slot )
 # Future Features
 - To be able to make this loader for every fnaf game there is
 - To be able to put your own saves , so they can be loaded
