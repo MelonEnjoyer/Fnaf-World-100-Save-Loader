@@ -1,15 +1,35 @@
 import getpass
+import shutil
 from tkinter import *
+import os
+p = 0
+def when_clicked():
+    global p
+    global current_slot
+    p = p + 1
+    a = True
+    while a:
+        if p == 4:
+            p = 1
+            a = False
+        if p == 1:
+            current_slot = "fnafw1"
+            a = False
+        if p == 2:
+            current_slot = "fnafw2"
+            a = False
+        if p == 3:
+            current_slot = "fnafw3"
+            a = False
+    print(current_slot)
+    return
 
+when_clicked()
 username = getpass.getuser()
-path = f'''C:/Users/{username}/AppData/Roaming/MMFApplications/fnafw1'''
-
 
 def full_game_100():
-    open(path, "w").close()
-    f = open(path, "a")
-    f.write(f'''
-[fnafw]
+    f = open(f'''C:/Users/{username}/AppData/Roaming/MMFApplications/{current_slot}''', "a")
+    f.write(f'''[fnafw]
 newgame=0
 1have=1
 2have=1
@@ -224,11 +244,72 @@ p4=1
     f.close()
     return
 
+
+def replace_line(filename, line_number, text):
+    with open(filename) as file:
+        lines = file.readlines()
+    if line_number <= len(lines):
+        lines[line_number - 1] = text + "\n"
+        with open(filename, "w") as file:
+            for line in lines:
+                file.write(line)
+
+
+def token_999():
+    word = 'tokens='
+    with open(f'''C:/Users/{username}/AppData/Roaming/MMFApplications/{current_slot}''', 'r') as fp:
+        lines = fp.readlines()
+        for line in lines:
+            if line.find(word) != -1:
+                with open(f'''C:/Users/{username}/AppData/Roaming/MMFApplications/{current_slot}''', "r+") as f:
+                    d = f.readlines()
+                    f.seek(0)
+                    for i in d:
+                        if i != lines.index(line):
+                            f.write(i)
+                    f.truncate()
+                replace_line(f'''C:/Users/{username}/AppData/Roaming/MMFApplications/{current_slot}''', lines.index(line),"tokens=9999999999")
+
+
+def backup():
+    directory = "BackupSaves"
+    parent_dir = f'''C:/Users/{username}/AppData/Roaming/MMFApplications'''
+    path = os.path.join(parent_dir, directory)
+    os.mkdir(path)
+    if os.path.exists(f'''C:/Users/{username}/AppData/Roaming/MMFApplications/BackupSaves'''):
+        shutil.move(f'''C:/Users/{username}/AppData/Roaming/MMFApplications/{current_slot}''',
+                    f'''C:/Users/{username}/AppData/Roaming/MMFApplications/BackupSaves''')
+    return
+
+
+def remove_current_and_replace_with_backup():
+    os.remove(f'''C:/Users/{username}/AppData/Roaming/MMFApplications/{current_slot}''')
+    shutil.move(f'''C:/Users/{username}/AppData/Roaming/MMFApplications/BackupSaves/{current_slot}''',
+                f'''C:/Users/{username}/AppData/Roaming/MMFApplications/''')
+
 def tk_gui():
     root = Tk()
-    root.geometry('200x150')
+    root.geometry('250x150')
+    label = Label(root, text="FNAF WORLD SAVE 100%", font='Helvetica 14 bold', foreground="red", bg='black')
+    label.pack()
+    label2 = Label(root, text="Warning:Backup before loading", font='Helvetica 10 bold', foreground="red", bg='black')
+    label2.pack()
     root.configure(bg='black')
-    btn1 = Button(root, text='100% Save', bd='5',fg='white',bg='red',command=lambda: full_game_100())
-    btn1.pack_configure(padx=50, pady=50)
+    btn1 = Button(root, text='100% Save     ', bd='5', fg='white', bg='red', command=lambda: full_game_100())
+    btn2 = Button(root, text='Backup          ', bd='5', fg='white', bg='red', command=lambda: backup())
+    btn3 = Button(root, text='Load Backup', bd='5', fg='white', bg='red',command=lambda: remove_current_and_replace_with_backup())
+    btn4 = Button(root, text='Infinite Tokens', bd='5', fg='white', bg='red', command=lambda: token_999())
+    root.update_idletasks()
+    btn5 = Button(root, text='Change Slot    ', bd='5', fg='white', bg='red', command=lambda: when_clicked())
+    btn1.pack()
+    btn2.pack()
+    btn3.pack()
+    btn4.pack()
+    btn5.pack()
+    btn1.place(y=50, x=10)
+    btn2.place(y=80, x=10)
+    btn3.place(y=110, x=10)
+    btn4.place(y=50, x=111)
+    btn5.place(y=80, x=111)
     root.mainloop()
 tk_gui()
