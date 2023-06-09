@@ -11,6 +11,5 @@ Enjoy!
 # Future Features
 - To be able to make this loader for every fnaf game there is
 - To be able to put your own saves , so they can be loaded
-- T̶o̶ b̶e̶ a̶b̶l̶e̶ t̶o̶ b̶a̶c̶k̶u̶p̶ y̶o̶u̶r̶ s̶a̶v̶e̶s̶ 
 - Better GUI(currently, a complete trash GUI)
 
